@@ -14,7 +14,7 @@ Either one of the following method can be used to install and load konez package
 devtools::install('konez')
 library(konez)
 ```
-2. For this method, you don't need to download anything manually, just run the following two lines of code and you are all set,
+2. For this method, you don't need to download anything manually, but a live internet connection at the time of installation. Just run the following two lines of code and you are all set,
 ```R
 devtools::install_github("HVoltBb/konez")
 library(konez)
