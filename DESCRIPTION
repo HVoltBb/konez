@@ -1,0 +1,21 @@
+Package: konez
+Title: K-aggregated transformation for modeling excess ones
+Version: 1.1.69
+Authors@R: 
+    c(person(given = "Can",
+           family = "Zhou",
+           role = c("aut", "cre"),
+           email = "eidotog@gmail.com",
+           comment = c(ORCID = "0000-0003-4533-5333")),
+    person(given = "Xi",
+           family = "Zhao",
+           role = c("ctb")))
+Imports: runjags, 
+         rjags, 
+         rlecuyer
+Description: konez implements the k-aggregated transformation to discrete count distributions in a Bayesian GLM.
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+Maintainer: Can Zhou <eidotog@gmail.com>
+RoxygenNote: 6.1.1
