@@ -9,12 +9,12 @@ library('devtools')
 ```
 Either one of the following method can be used to install and load konez package:
 
-1. Download the zip file of konez package from GitHub, unzip it to your working directory on your computer, and run the following commands in R,
+* Download the zip file of konez package from GitHub, unzip it to your working directory on your computer, and run the following commands in R,
 ```R
 devtools::install('konez')
 library(konez)
 ```
-2. For this method, you don't need to download anything manually, but a live internet connection at the time of installation. Just run the following two lines of code and you are all set,
+* For this method, you don't need to download anything manually, but a live internet connection at the time of installation. Just run the following two lines of code and you are all set,
 ```R
 devtools::install_github("HVoltBb/konez")
 library(konez)
