@@ -17,7 +17,7 @@ fit_k(model = c("poisson", "negbinom", "cmp", "Tpoisson", "Tnegbinom",
 
 \item{type}{numeric value, specifying the type of regression model: 0: no covariates; 1: with covariates; 2: with covariates and random effects. Defaults to \code{0}.}
 
-\item{model_par}{list of model parameters. \code{Xc} is the covariate matrix for the count model, \code{Xrc} is the covariate matrix of the random effect for the count model, \code{Xz} is the covariate matrix for the zero/one model, \code{Xrz} is the covariate matrix of the random effect for the zero/one model, and \code{maxiter} is a positive integer, specifying the number of positive term to keep in the calculation of the Conway-Maxwell-Poisson distribution.}
+\item{model_par}{list of model parameters. \code{Xc} is the covariate dataframe for the count model, \code{Xrc} is a dataframe of the covariate of the random effect for the count model, \code{Xz} is the covariate dataframe for the zero/one model, \code{Xrz} is the covariate dataframe of the random effect for the zero/one model, and \code{maxiter} is a positive integer, specifying the number of positive term to keep in the calculation of the Conway-Maxwell-Poisson distribution.}
 
 \item{jags_par}{list of variables to pass to run.jags function.}
 

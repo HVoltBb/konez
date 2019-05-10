@@ -5,7 +5,7 @@
 #' @param data numeric vector of counts.
 #' @param ks numeric vector of integers.
 #' @param type numeric value, specifying the type of regression model: 0: no covariates; 1: with covariates; 2: with covariates and random effects. Defaults to \code{0}.
-#' @param model_par list of model parameters. \code{Xc} is the covariate matrix for the count model, \code{Xrc} is the covariate matrix of the random effect for the count model, \code{Xz} is the covariate matrix for the zero/one model, \code{Xrz} is the covariate matrix of the random effect for the zero/one model, and \code{maxiter} is a positive integer, specifying the number of positive term to keep in the calculation of the Conway-Maxwell-Poisson distribution.
+#' @param model_par list of model parameters. \code{Xc} is the covariate dataframe for the count model, \code{Xrc} is the covariate dataframe of the random effect for the count model, \code{Xz} is the covariate dataframe for the zero/one model, \code{Xrz} is the covariate dataframe of the random effect for the zero/one model, and \code{maxiter} is a positive integer, specifying the number of positive term to keep in the calculation of the Conway-Maxwell-Poisson distribution.
 #' @param jags_par list of variables to pass to run.jags function.
 #' @examples x = find_k('pois', legion)
 #' @export
@@ -42,7 +42,7 @@ find_k <- function(model=c('poisson', 'negbinom', 'cmp', 'Tpoisson','Tnegbinom',
 #' @param data numeric vector of counts.
 #' @param ks numeric vector of integers.
 #' @param type numeric value, specifying the type of regression model: 0: no covariates; 1: with covariates; 2: with covariates and random effects. Defaults to \code{0}.
-#' @param model_par list of model parameters. \code{Xc} is the covariate matrix for the count model, \code{Xrc} is the covariate matrix of the random effect for the count model, \code{Xz} is the covariate matrix for the zero/one model, \code{Xrz} is the covariate matrix of the random effect for the zero/one model, and \code{maxiter} is a positive integer, specifying the number of positive term to keep in the calculation of the Conway-Maxwell-Poisson distribution.
+#' @param model_par list of model parameters. \code{Xc} is the covariate dataframe for the count model, \code{Xrc} is a dataframe of the covariate of the random effect for the count model, \code{Xz} is the covariate dataframe for the zero/one model, \code{Xrz} is the covariate dataframe of the random effect for the zero/one model, and \code{maxiter} is a positive integer, specifying the number of positive term to keep in the calculation of the Conway-Maxwell-Poisson distribution.
 #' @param jags_par list of variables to pass to run.jags function.
 fit_k <- function(model=c('poisson', 'negbinom', 'cmp', 'Tpoisson','Tnegbinom', 'Tcmp'), count, ks = 0:5, type = 0, model_par = list(Xc = NA, Xz = NA, Xrc = NA, Xrz = NA, maxiter=50), jags_par=list(chain = 3, sample = 500, thin = 10, method = 'rjparallel', burnin = 1e3, inits = inix)){
   model = parse_model(model, type)
@@ -76,16 +76,16 @@ parse_data <- function(count, type, model_par){
   if(type >= 1){
     if(is.null(model_par$Xc) || is.na(model_par$Xc)) model_par[['Xc']] = matrix(0, nrow = length(dat), ncol = 1)
     if(is.null(model_par$Xz) || is.na(model_par$Xz)) model_par[['Xz']] = matrix(0, nrow = length(dat), ncol = 1)
-    datalist[['xc']] = model_par$Xc
-    datalist[['xz']] = model_par$Xz
+    datalist[['xc']] = data.frame(model_par$Xc)
+    datalist[['xz']] = data.frame(model_par$Xz)
     datalist[['ncov1']] = dim(model_par$Xz)[2]
     datalist[['ncov2']] = dim(model_par$Xc)[2]
   }
   if(type==2){
     if(is.null(model_par$Xrc) || is.na(model_par$Xrc)) model_par[['Xrc']] = matrix(0, nrow = length(dat), ncol = 1)
     if(is.null(model_par$Xrz) || is.na(model_par$Xrz)) model_par[['Xrz']] = matrix(0, nrow = length(dat), ncol = 1)
-    datalist[['xrc']] = model_par$Xrc
-    datalist[['xrz']] = model_par$Xrz
+    datalist[['xrc']] = data.frame(model_par$Xrc)
+    datalist[['xrz']] = data.frame(model_par$Xrz)
     datalist[['nlevel1']] = dim(model_par$Xrz)[2]
     datalist[['nlevel2']] = dim(model_par$Xrc)[2]
     datalist[['rei1']] = 1
