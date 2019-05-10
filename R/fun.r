@@ -98,7 +98,7 @@ parse_data <- function(count, type, model_par){
 parse_model <- function(model, type){
   modellist = c('poissonk', 'negbinomk', 'cmpk', 'Tpoissonk','Tnegbinomk', 'Tcmpk')
   model = modellist[pmatch(model[1], modellist, nomatch = 1)]
-  if(type >=1) model = paste0(model, 'X')
+  if(type >=1) model = paste0(model, 'x')
   return(model)
 }
 
