@@ -41,12 +41,12 @@ find_k <- function(model=c('poisson', 'negbinom', 'cmp', 'Tpoisson','Tnegbinom',
 #'
 #' @param model character string, partially matched to c('poisson', 'negbinom', 'cmp', 'Tpoisson','Tnegbinom', 'Tcmp'): see 'Details'.
 #' @param data numeric vector of counts.
-#' @param ks numeric vector of integers.
+#' @param k numeric (non-negative integer).
 #' @param type numeric value, specifying the type of regression model: 0: no covariates; 1: with covariates; 2: with covariates and random effects. Defaults to \code{0}.
 #' @param model_par list of model parameters. \code{Xc} is the covariate dataframe for the count model, \code{Xrc} is a dataframe of the covariate of the random effect for the count model, \code{Xz} is the covariate dataframe for the zero/one model, \code{Xrz} is the covariate dataframe of the random effect for the zero/one model, and \code{maxiter} is a positive integer, specifying the number of positive term to keep in the calculation of the Conway-Maxwell-Poisson distribution.
 #' @param jags_par list of variables to pass to run.jags function.
 #' @export
-fit_k <- function(model=c('poisson', 'negbinom', 'cmp', 'Tpoisson','Tnegbinom', 'Tcmp'), count, ks = 0:5, type = 0, model_par = list(Xc = NA, Xz = NA, Xrc = NA, Xrz = NA, maxiter=50), jags_par=list(chain = 3, sample = 500, thin = 10, method = 'rjparallel', burnin = 1e3, inits = inix)){
+fit_k <- function(model=c('poisson', 'negbinom', 'cmp', 'Tpoisson','Tnegbinom', 'Tcmp'), count, k = 0, type = 0, model_par = list(Xc = NA, Xz = NA, Xrc = NA, Xrz = NA, maxiter=50), jags_par=list(chain = 3, sample = 500, thin = 10, method = 'rjparallel', burnin = 1e3, inits = inix)){
   model = parse_model(model, type)
   cat('model:', model, '\n')
   datalist = parse_data(count, type, model_par)

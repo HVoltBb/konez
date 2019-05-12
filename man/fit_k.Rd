@@ -5,15 +5,14 @@
 \title{Fit a k-aggregated model}
 \usage{
 fit_k(model = c("poisson", "negbinom", "cmp", "Tpoisson", "Tnegbinom",
-  "Tcmp"), count, ks = 0:5, type = 0, model_par = list(Xc = NA, Xz =
-  NA, Xrc = NA, Xrz = NA, maxiter = 50), jags_par = list(chain = 3,
-  sample = 500, thin = 10, method = "rjparallel", burnin = 1000, inits =
-  inix))
+  "Tcmp"), count, k = 0, type = 0, model_par = list(Xc = NA, Xz = NA,
+  Xrc = NA, Xrz = NA, maxiter = 50), jags_par = list(chain = 3, sample =
+  500, thin = 10, method = "rjparallel", burnin = 1000, inits = inix))
 }
 \arguments{
 \item{model}{character string, partially matched to c('poisson', 'negbinom', 'cmp', 'Tpoisson','Tnegbinom', 'Tcmp'): see 'Details'.}
 
-\item{ks}{numeric vector of integers.}
+\item{k}{numeric (non-negative integer).}
 
 \item{type}{numeric value, specifying the type of regression model: 0: no covariates; 1: with covariates; 2: with covariates and random effects. Defaults to \code{0}.}
 
