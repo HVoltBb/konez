@@ -3,6 +3,7 @@
 export(dcmp)
 export(dkx)
 export(find_k)
+export(fit_k)
 export(pcmp)
 export(pkx)
 export(rcmp)
