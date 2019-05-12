@@ -20,7 +20,7 @@ devtools::install_github("HVoltBb/konez")
 library(konez)
 ```
 
-The functionality of this package depends on JAGS 4.X.X, and r packages: rjags, and runjags, which should be installed. 
+The functionality of this package depends on JAGS 4.X.X, and r packages: rjags, and runjags. JAGS software can be found at http://mcmc-jags.sourceforge.net/, and rjags and runjags can be installed normally in R through CRAN.
 
 
 If there is any questions, let me know at <eidotog@gmail.com>.
