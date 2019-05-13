@@ -15,7 +15,7 @@ find_k <- function(model=c('poisson', 'negbinom', 'cmp', 'Tpoisson','Tnegbinom',
   cat('model:', model, '\n')
   listx = parse_data(count, type, model_par)
   
-  runjags.options('silent.runjags'=TRUE, 'silent.jags'=TRUE)
+  runjags::runjags.options('silent.runjags'=TRUE, 'silent.jags'=TRUE)
   rjags::load.module('lecuyer')
   rjags::parallel.seeds('lecuyer::RngStream', jags_par$chain)
   dics = rep(NA, length(ks))
@@ -29,7 +29,7 @@ find_k <- function(model=c('poisson', 'negbinom', 'cmp', 'Tpoisson','Tnegbinom',
 
   }
   cat('Finished k =',paste0(ks,', '),'\b\b\b.\n')
-  runjags.options('silent.runjags'=FALSE, 'silent.jags'=FALSE)
+  runjags::runjags.options('silent.runjags'=FALSE, 'silent.jags'=FALSE)
   return(dics)
 }
 
