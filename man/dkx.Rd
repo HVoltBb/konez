@@ -12,8 +12,8 @@ dkx(x, k, family, param = list(lambda = NA, size = NA, logmu = NA, lognu
 pkx(q, k, family, param = list(lambda = NA, size = NA, logmu = NA, lognu
   = NA))
 
-rkx(n, x, k, family, param = list(lambda = NA, size = NA, logmu = NA,
-  lognu = NA))
+rkx(n, k, family, param = list(lambda = NA, size = NA, logmu = NA, lognu
+  = NA))
 }
 \arguments{
 \item{x}{vector of (non-negative integers) quantiles.}

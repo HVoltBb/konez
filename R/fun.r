@@ -10,28 +10,26 @@
 #' @examples x = find_k('pois', legion)
 #' @export
 
-find_k <- function(model=c('poisson', 'negbinom', 'cmp', 'Tpoisson','Tnegbinom', 'Tcmp'), count, ks = 0:5, type = 0, model_par = list(Xc = NA, Xz = NA, Xrc = NA, Xrz = NA, maxiter=50), jags_par=list(chain = 3, sample = 500, thin = 10, method = 'rjparallel', burnin = 1e3, inits = inix)){
+find_k <- function(model=c('poisson', 'negbinom', 'cmp', 'Tpoisson','Tnegbinom', 'Tcmp'), count, ks = 0:5, type = 0, model_par = list(Xc = NA, Xz = NA, Xrc = NA, Xrz = NA, maxiter=50), jags_par=list(chain = 2, sample = 1, thin = 5, method = 'rjparallel', burnin = 500, inits = inix, dic.sample = 1e3)){
   model = parse_model(model, type)
   cat('model:', model, '\n')
-  datalist = parse_data(count, type, model_par)
-
-  if (!file.exists('out.tmp'))  file.create('out.tmp')
-  options(warn = -1)
-  cat('model:', model, '\n', file = 'out.tmp')
+  listx = parse_data(count, type, model_par)
+  
+  runjags.options('silent.runjags'=TRUE, 'silent.jags'=TRUE)
   rjags::load.module('lecuyer')
   rjags::parallel.seeds('lecuyer::RngStream', jags_par$chain)
-  cat("###\nYou may lose the output stream to your screen when interupted...\nUse 'sink()' to redirect the output stream to your screen when it happens.\n###\n")
-  dics = list()
+  dics = rep(NA, length(ks))
+  names(dics) <- paste0('k=',ks)
   for (i in 1:length(ks)){
-    datalist[['k']] = ks[i]
-    sink('out.tmp', append = TRUE)
-    fitj = do_fit(model, datalist, jags_par)
-    dics[[paste0('k = ', ks[i])]] = runjags::extract(fitj, 'dic')
-    sink()
-    cat("k=", ks[i], '>>\t')
+    listx$datalist$k = ks[i]
+    cat("k=", ks[i], '>> ')
+    fitj = do_fit(model, listx, jags_par)
+    temp = runjags::extract(fitj, 'dic', n.iter = jags_par$dic.sample)
+    dics[i] = sum(temp[[1]]+temp[[2]], na.rm = TRUE)
+
   }
-  cat('\nDone!\n')
-  options(warn = 0)
+  cat('Finished k =',paste0(ks,', '),'\b\b\b.\n')
+  runjags.options('silent.runjags'=FALSE, 'silent.jags'=FALSE)
   return(dics)
 }
 
@@ -49,51 +47,55 @@ find_k <- function(model=c('poisson', 'negbinom', 'cmp', 'Tpoisson','Tnegbinom',
 fit_k <- function(model=c('poisson', 'negbinom', 'cmp', 'Tpoisson','Tnegbinom', 'Tcmp'), count, k = 0, type = 0, model_par = list(Xc = NA, Xz = NA, Xrc = NA, Xrz = NA, maxiter=50), jags_par=list(chain = 3, sample = 500, thin = 10, method = 'rjparallel', burnin = 1e3, inits = inix)){
   model = parse_model(model, type)
   cat('model:', model, '\n')
-  datalist = parse_data(count, type, model_par)
+  listx = parse_data(count, type, model_par)
 
   options(warn = -1)
   rjags::load.module('lecuyer')
   rjags::parallel.seeds('lecuyer::RngStream', jags_par$chain)
-  datalist[['k']] = k
-  fitj = do_fit(model, datalist, jags_par)
+  listx$datalist$k = k
+  fitj = do_fit(model, listx, jags_par)
   options(warn = 0)
   return(fitj)
 }
 
 #' Fit a k-aggregated model
-do_fit <- function(model, datalist, jags_par){
+do_fit <- function(model, listx, jags_par){
   fitj = runjags::run.jags(model = eval(parse(text = model)),
-                  monitor = c('c1', 'c2', 'size', 'logmu', 'lognu'),
-                  data = datalist, n.chains = jags_par$chain,
+                  monitor = listx$monitorlist,
+                  data = listx$datalist, n.chains = jags_par$chain,
                   inits = jags_par$inits, burnin = jags_par$burnin,
                   sample = jags_par$sample, thin = jags_par$thin,
-                  method = jags_par$method)
+                  method = jags_par$method, summarise = FALSE)
   return(fitj)
 }
 
 #' Parse data for the jags input
 parse_data <- function(count, type, model_par){
   dat = c(count)
-  datalist = list(nz = sum(dat==0), n = length(dat), zeros=rep(0, length(dat)), k = 0, BirdNum = dat, maxiter=model_par$maxiter, zero = 0, xc = matrix(0, nrow = length(dat), ncol = 1), xz = matrix(0, nrow = length(dat), ncol = 1), ncov1 = 1, ncov2 = 1, nlevel1 = 1, nlevel2 = 1, rei1=0, rei2=0, xrc = matrix(0, nrow = length(dat), ncol = 1), xrz = matrix(0, nrow = length(dat), ncol = 1))
+  inx = order(dat)
+  datalist = list(nz = sum(dat==0), n = length(dat), zeros=rep(0, length(dat)), k = 0, BirdNum = dat[inx], maxiter=model_par$maxiter, zero = 0, xc = matrix(0, nrow = length(dat), ncol = 1), xz = matrix(0, nrow = length(dat), ncol = 1), ncov1 = 1, ncov2 = 1, nlevel1 = 1, nlevel2 = 1, rei1=0, rei2=0, xrc = matrix(0, nrow = length(dat), ncol = 1), xrz = matrix(0, nrow = length(dat), ncol = 1))
+  monitorlist = c('c1', 'c2', 'size', 'logmu', 'lognu')
   if(type >= 1){
     if(is.null(model_par$Xc) || is.na(model_par$Xc)) model_par[['Xc']] = matrix(0, nrow = length(dat), ncol = 1)
     if(is.null(model_par$Xz) || is.na(model_par$Xz)) model_par[['Xz']] = matrix(0, nrow = length(dat), ncol = 1)
-    datalist[['xc']] = data.matrix(model_par$Xc)
-    datalist[['xz']] = data.matrix(model_par$Xz)
+    datalist[['xc']] = data.matrix(model_par$Xc[inx,])
+    datalist[['xz']] = data.matrix(model_par$Xz[inx,])
     datalist[['ncov1']] = dim(model_par$Xz)[2]
     datalist[['ncov2']] = dim(model_par$Xc)[2]
+    monitorlist = c(monitorlist, 'b1', 'b2')
   }
   if(type==2){
     if(is.null(model_par$Xrc) || is.na(model_par$Xrc)) model_par[['Xrc']] = matrix(0, nrow = length(dat), ncol = 1)
     if(is.null(model_par$Xrz) || is.na(model_par$Xrz)) model_par[['Xrz']] = matrix(0, nrow = length(dat), ncol = 1)
-    datalist[['xrc']] = data.matrix(model_par$Xrc)
-    datalist[['xrz']] = data.matrix(model_par$Xrz)
+    datalist[['xrc']] = data.matrix(model_par$Xrc[inx,])
+    datalist[['xrz']] = data.matrix(model_par$Xrz[inx,])
     datalist[['nlevel1']] = dim(model_par$Xrz)[2]
     datalist[['nlevel2']] = dim(model_par$Xrc)[2]
     datalist[['rei1']] = 1
     datalist[['rei2']] = 1
+    monitorlist = c(monitorlist, 'r1', 'r2', 'var1', 'var2')
   }
-  return(datalist)
+  return(list(datalist= datalist, monitorlist=monitorlist))
 }
 
 #' Parse model
@@ -106,9 +108,9 @@ parse_model <- function(model, type){
 
 #' Initial value generating function
 inix = function(chain){
-  return(list(c1 = rnorm(1, 0, .1),
-              c2 = rnorm(1, 0, .1),
-              size = runif(1, 0, 1),
+  return(list(c1 = runif(1, -0.6, 0.9),
+              c2 = runif(1, -1, 2),
+              size = runif(1, 1, 9),
               lognu = rnorm(1, 0, .1),
               var1 = runif(1, 0, 1),
               var2 = runif(1, 0, 1)
@@ -223,7 +225,7 @@ pkx = Vectorize(pkx_, vectorize.args = 'q')
 
 #'@describeIn dkx Random number generator for the k-aggregated distribution.
 #'@export
-rkx = function(n, x, k, family, param=list(lambda=NA, size=NA, logmu=NA,lognu=NA)){
+rkx = function(n, k, family, param=list(lambda=NA, size=NA, logmu=NA,lognu=NA)){
   familylist = c('pois', 'tpois', 'negbinom', 'tnegbinom', 'cmp', 'tcmp')
   family = familylist[pmatch(family[1], familylist, nomatch=1)]
   res = rep(0, n)
@@ -251,10 +253,10 @@ rkx = function(n, x, k, family, param=list(lambda=NA, size=NA, logmu=NA,lognu=NA
     res = rcmpk(exp(logmu), exp(lognu), zip = FALSE)
   }
 
-  indx = which(res > 0 && res <= k+1)
-  res[indx] = 1
+  indx = which(res > 0 & res <= k+1)
+  res[indx] <- 1
   indx = which(res > 1)
-  res[indx] = res[indx] - k
+  res[indx] <- res[indx] - k
   return(res)
 }
 

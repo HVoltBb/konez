@@ -4,7 +4,7 @@
 \alias{do_fit}
 \title{Fit a k-aggregated model}
 \usage{
-do_fit(model, datalist, jags_par)
+do_fit(model, listx, jags_par)
 }
 \description{
 Fit a k-aggregated model
