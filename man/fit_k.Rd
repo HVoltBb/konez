@@ -10,7 +10,7 @@ fit_k(model = c("poisson", "negbinom", "cmp", "Tpoisson", "Tnegbinom",
   500, thin = 10, method = "rjparallel", burnin = 1000, inits = inix))
 }
 \arguments{
-\item{model}{character string, partially matched to c('poisson', 'negbinom', 'cmp', 'Tpoisson','Tnegbinom', 'Tcmp'): see 'Details'.}
+\item{model}{character string, partially matched to \code{c('poisson', 'negbinom', 'cmp', 'Tpoisson','Tnegbinom', 'Tcmp')}: see 'Details'.}
 
 \item{k}{numeric (non-negative integer).}
 

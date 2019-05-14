@@ -2,10 +2,12 @@
 % Please edit documentation in R/fun.r
 \name{inix}
 \alias{inix}
-\title{Initial value generating function}
+\title{Initial value generating function
+User should provide their own inits function.}
 \usage{
 inix(chain)
 }
 \description{
 Initial value generating function
+User should provide their own inits function.
 }

@@ -37,7 +37,7 @@ find_k <- function(model=c('poisson', 'negbinom', 'cmp', 'Tpoisson','Tnegbinom',
 #'
 #' Fit a k-aggregated model with a fixed k.
 #'
-#' @param model character string, partially matched to c('poisson', 'negbinom', 'cmp', 'Tpoisson','Tnegbinom', 'Tcmp'): see 'Details'.
+#' @param model character string, partially matched to \code{c('poisson', 'negbinom', 'cmp', 'Tpoisson','Tnegbinom', 'Tcmp')}: see 'Details'.
 #' @param data numeric vector of counts.
 #' @param k numeric (non-negative integer).
 #' @param type numeric value, specifying the type of regression model: 0: no covariates; 1: with covariates; 2: with covariates and random effects. Defaults to \code{0}.
@@ -108,6 +108,8 @@ parse_model <- function(model, type){
 }
 
 #' Initial value generating function
+#' User should provide their own inits function.
+
 inix = function(chain){
   return(list(c1 = runif(1, -0.6, 0.9),
               c2 = runif(1, -1, 2),
@@ -296,6 +298,7 @@ qtnb <- function(p, size, logmu){
 #'@param logmu the mean using Guikema and Goffelt's (2008) parametrization.
 #'@param lognu the shape parameter using Guikema and Goffelt's (2008) parametrization.
 #'@param maxiter integer specifying number of term to keep in calculating the normalizing constant. Defaults to 50.
+#'@references [1] Guikema, S. D., & Goffelt, J. P. (2008). A flexible count data regression model for risk analysis. Risk Analysis: An International Journal, 28(1), 213-223.
 #'@describeIn dcmp Density function for the CMP distribution.
 #'@export
 dcmp = Vectorize(dcmp_, vectorize.args = 'x')

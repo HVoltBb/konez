@@ -35,3 +35,6 @@ Density, distribution function and random generaton for the Conway-Maxwell-Poiss
 \item \code{rcmp}: Generates random numbers from the CMP distribution. This is a wrapper for the k-aggregated CMP random number generator.
 }}
 
+\references{
+[1] Guikema, S. D., & Goffelt, J. P. (2008). A flexible count data regression model for risk analysis. Risk Analysis: An International Journal, 28(1), 213-223.
+}
