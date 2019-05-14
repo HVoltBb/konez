@@ -25,3 +25,6 @@ fit_k(model = c("poisson", "negbinom", "cmp", "Tpoisson", "Tnegbinom",
 \description{
 Fit a k-aggregated model with a fixed k.
 }
+\examples{
+fit = fit_k('n', poss$X.Lb, k=1, model_par = list(Xc = log(1+poss['X.Stags']), Xz = log(1+poss['X.Stags'])) # Fit 1-aggregated negative model to the Leadbeater's possum abundance data
+}

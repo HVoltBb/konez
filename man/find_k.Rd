@@ -27,5 +27,5 @@ find_k(model = c("poisson", "negbinom", "cmp", "Tpoisson", "Tnegbinom",
 Fit a series of models with different ks to data, and select the k value based on DIC.
 }
 \examples{
-x = find_k('pois', legion)
+x = find_k('pois', legion) # Find k-aggregated zero-inflated Poisson model to the Legionnaires data
 }
