@@ -6,9 +6,9 @@
 \usage{
 find_k(model = c("poisson", "negbinom", "cmp", "Tpoisson", "Tnegbinom",
   "Tcmp"), count, ks = 0:5, type = 0, model_par = list(Xc = NA, Xz =
-  NA, Xrc = NA, Xrz = NA, maxiter = 50), jags_par = list(chain = 2,
-  sample = 1, thin = 5, method = "rjparallel", burnin = 500, inits = inix,
-  dic.sample = 1000))
+  NA, Xrc = NA, Xrz = NA, maxiter = 50, size_upper = 100),
+  jags_par = list(chain = 2, sample = 1, thin = 5, method = "rjparallel",
+  burnin = 500, inits = inix, dic.sample = 1000))
 }
 \arguments{
 \item{model}{character string, partially matched to c('poisson', 'negbinom', 'cmp', 'Tpoisson','Tnegbinom', 'Tcmp'): see 'Details'.}
@@ -17,7 +17,7 @@ find_k(model = c("poisson", "negbinom", "cmp", "Tpoisson", "Tnegbinom",
 
 \item{type}{numeric value, specifying the type of regression model: 0: no covariates; 1: with covariates; 2: with covariates and random effects. Defaults to \code{0}.}
 
-\item{model_par}{list of model parameters. \code{Xc} is the covariate dataframe for the count model, \code{Xrc} is the covariate dataframe of the random effect for the count model, \code{Xz} is the covariate dataframe for the zero/one model, \code{Xrz} is the covariate dataframe of the random effect for the zero/one model, and \code{maxiter} is a positive integer, specifying the number of positive term to keep in the calculation of the Conway-Maxwell-Poisson distribution.}
+\item{model_par}{list of model parameters. \code{Xc} is the covariate dataframe for the count model, \code{Xrc} is the covariate dataframe of the random effect for the count model, \code{Xz} is the covariate dataframe for the zero/one model, \code{Xrz} is the covariate dataframe of the random effect for the zero/one model, \code{size_upper} is the upper bound of the prior of the size parameter of a negative binomial distribution (defaults to 100) and \code{maxiter} is a positive integer, specifying the number of positive term to keep in the calculation of the Conway-Maxwell-Poisson distribution (defaults to 50).}
 
 \item{jags_par}{list of variables to pass to run.jags function.}
 
