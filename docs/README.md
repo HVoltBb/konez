@@ -1,5 +1,5 @@
 # konez
-K-aggregated count data regression with covariates and random effects
+An R package for k-aggregated count data regression with covariates and random effects
 
 ## How to install
 First, you will need R package _devtools_. Run the following command in R, if you don't have devtools on your computer.
