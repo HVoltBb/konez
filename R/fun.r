@@ -29,7 +29,7 @@ find_k <- function(model=c('poisson', 'negbinom', 'cmp', 'Tpoisson','Tnegbinom',
 
   }
   cat('Finished k =',paste0(ks,', '),'\b\b\b.\n')
-  runjags.options('silent.runjags'=FALSE, 'silent.jags'=FALSE)
+  runjags::runjags.options('silent.runjags'=FALSE, 'silent.jags'=FALSE)
   return(dics)
 }
 
