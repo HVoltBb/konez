@@ -205,7 +205,7 @@ dcmp_ = function(x, lognu, logmu, maxiter = 50){
 
 #' K-aggregated Distribution
 #'
-#'Density, distribution function, quantile function and random generation for the k-aggregated discrete distributions
+#'Density, distribution function, and random generation for the k-aggregated discrete distributions
 #'@param x vector of (non-negative integers) quantiles.
 #'@param q vector of quantiles.
 #'@param n number of random number samples to return.
