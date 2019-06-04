@@ -29,7 +29,7 @@ rkx(n, k, family, param = list(lambda = NA, size = NA, logmu = NA, lognu
 \item{n}{number of random number samples to return.}
 }
 \description{
-Density, distribution function, quantile function and random generation for the k-aggregated discrete distributions
+Density, distribution function, and random generation for the k-aggregated discrete distributions
 }
 \details{
 For different base line distributions, a different set of parameters needs to be supplied through \code{param}: for families 'pois' and 'tpois', \code{param$lambda} cannot be \code{NA}; for families 'negbinom' and 'tnegbinom', \code{param$size} and \code{param$logmu} cannot be \code{NA}; for families 'cmp' and 'tcmp', \code{param$lognu} and \code{param$logmu} cannot be \code{NA}.
