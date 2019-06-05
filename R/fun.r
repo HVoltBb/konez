@@ -53,7 +53,7 @@ fit_k <- function(model=c('poisson', 'negbinom', 'cmp', 'Tpoisson','Tnegbinom', 
   options(warn = -1)
   rjags::load.module('lecuyer')
   rjags::parallel.seeds('lecuyer::RngStream', jags_par$chain)
-  listx$datalist$k = k
+  listx$datalist$k = k[1]
   fitj = do_fit(model, listx, jags_par)
   options(warn = 0)
   return(fitj)
