@@ -31,7 +31,12 @@ There are four datasets included in this package, and they are seabird bycatch (
 
 I __do not__ either own or maintain any of the datasets mentioned above. Any data related questions should be directed toward the respective authors or relevant authorities. 
 
-
+## Tutorial
+I plan to add a tutorial on how to use k-aggregated models from start to finish. Sections to include are:
+1. Data formating
+2. Fitting a family of k-aggregated model
+3. Model selection based on DIC
+4. Model prediction
 
 
 If there is any questions to me, contact me at <eiDOTog@gmail.com>.
