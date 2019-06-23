@@ -50,12 +50,13 @@ fit_k <- function(model=c('poisson', 'negbinom', 'cmp', 'Tpoisson','Tnegbinom', 
   cat('model:', model, '\n')
   listx = parse_data(count, type, model_par)
 
+  oldwarn = getOption("warn")
   options(warn = -1)
+  on.exit(options(warn = oldwarn))
   rjags::load.module('lecuyer')
   rjags::parallel.seeds('lecuyer::RngStream', jags_par$chain)
   listx$datalist$k = k[1]
   fitj = do_fit(model, listx, jags_par)
-  options(warn = 0)
   return(fitj)
 }
 
