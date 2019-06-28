@@ -24,9 +24,6 @@ The functionality of this package depends on JAGS 4.X.X, which can be downloaded
 ## Build-in datasets
 There are four datasets included in this package, and they are seabird bycatch (partial), Legionnaire's disease incidence in Singapore, Leadbeater's possum abundance and frigatebird nesting sites. These datasets were used as case studies in [a paper in Ecological Modelling](https://authors.elsevier.com/a/1ZIPN15DJ~xLzr).
 
-### Errata for K-aggregated transformation of discrete distributions improves modeling count data with excess ones in Ecological Modelling
-1. On page 4, left column, line 3: <img src="https://latex.codecogs.com/gif.latex?\Gamma " /> is the gamma function, not the lower case <img src="https://latex.codecogs.com/gif.latex?\gamma " /> in the text. Apparently "\Gamma" was auto-corrected to "\gamma" during production.
-
 These datasets were either extracted from published literature or downloaded directly from the publisher's data repository. Seabird bycatch data is only a partial summary, only enough to generate a histogram to view the distribution of counts. To replicate the results presented in that manuscript, however, you need to acquire the whole dataset from the original authors of the publication or from relevant authorities. The other datasets are the same as the ones used in the manuscript. Relevant references are given below. 
 
 * Xu, H.-Y., Xie, M., Goh, T.N., 2014. Objective Bayes analysis of zero-inflated Poisson distribution with application to healthcare data. IIE Transactions 46, 843-852.
@@ -42,6 +39,12 @@ I plan to add a tutorial on how to use k-aggregated models from start to finish.
 2. Fitting a family of k-aggregated model
 3. Model selection based on DIC
 4. Model prediction
+
+
+## Errata 
+[K-aggregated transformation of discrete distributions improves modeling count data with excess ones](https://authors.elsevier.com/a/1ZIPN15DJ~xLzr) in Ecological Modelling
+
+1. On page 4, left column, line 3: <img src="https://latex.codecogs.com/gif.latex?\Gamma " /> is the gamma function, not the lower case <img src="https://latex.codecogs.com/gif.latex?\gamma " /> as appeared in the text. Apparently "\Gamma" was auto-corrected to "\gamma" during production. It was even rendered as <img src="https://latex.codecogs.com/gif.latex?\Delta " /> in the final proof, even through the latex is correct.  
 
 
 If there is any questions to me, contact me at <eiDOTog@gmail.com>.
