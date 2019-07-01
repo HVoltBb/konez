@@ -12,7 +12,14 @@ The long answer is "[K-aggregated transformation of discrete distributions impro
 
 __Figure 1. The probability mass function of a k-aggregated distribution over the positive range.__
 
-In that figure, I plotted the probability mass function of a k-aggregated distribution P(x) only over the positive range. The probability of zero would have a zero-inflated or hurdle structure, which would complicate the picture. So, I left P(0) out, but you can always add it back in. The k-aggregated distribution P(x) is constructed from a baseline count distribution P<sub>b</sub>(x), which has probabilities depicted as those maroon boxes. P(1) is constructed by stacking P<sub>b</sub>(1) through P<sub>b</sub>(k+1), and for i>1, P(i) is P<sub>b</sub>(k+i). Specifically, with k=0, P(x) is equivalent to P<sub>b</sub>(x). The letter "k" has no other significance than an index variable. Any other letter could have been used, but when I originally wrote the code, it was the letter "k" that was used in the loop to sum up those P<sub>b</sub>s. 
+In that figure, I plotted the probability mass function of a k-aggregated distribution P(x) only over the positive range. The probability of zero would have a zero-inflated or hurdle structure, which would complicate the picture. So, I left P(0) out, but you can always add it back in. The k-aggregated distribution P(x) is constructed from a baseline count distribution P<sub>b</sub>(x), which has probabilities depicted as those maroon boxes. P(1) is constructed by stacking P<sub>b</sub>(1) through P<sub>b</sub>(k+1), and for i>1, P(i) is P<sub>b</sub>(k+i). Specifically, with k=0, P(x) is equivalent to P<sub>b</sub>(x). The letter "k" has no other significance than an index variable. Any other letter could have been used, but when I originally wrote the code, it was the letter "k" that was used in the loop to sum up those P<sub>b</sub>s.
+
+## Errata 
+[K-aggregated transformation of discrete distributions improves modeling count data with excess ones](https://authors.elsevier.com/a/1ZIPN15DJ~xLzr) in Ecological Modelling
+
+1. On page 4, left column, line 3: <img src="https://latex.codecogs.com/gif.latex?\Gamma " /> is the gamma function, not the lower case <img src="https://latex.codecogs.com/gif.latex?\gamma " /> as appeared in the text. Apparently "\Gamma" was auto-corrected to "\gamma" during production. It was even rendered as <img src="https://latex.codecogs.com/gif.latex?\Delta " /> in the final proof, even through the latex is correct.  
+
+2. The first sentence of section 2.3 should be "To model excess ones, we aggregated the first k+1 probabilities of an original distribution g(x) over the positive range to represent the probability of a singleton outcome, and left shifted remaining probabilities to represent the probability of two or more counts, ". The original sentence wasn't clear. 
 
 ## How to install
 First, you will need R package _devtools_. Run the following command in R, if you don't have devtools on your computer.
@@ -53,13 +60,6 @@ I plan to add a tutorial on how to use k-aggregated models from start to finish.
 3. Model selection based on DIC
 4. Model prediction
 
-
-## Errata 
-[K-aggregated transformation of discrete distributions improves modeling count data with excess ones](https://authors.elsevier.com/a/1ZIPN15DJ~xLzr) in Ecological Modelling
-
-1. On page 4, left column, line 3: <img src="https://latex.codecogs.com/gif.latex?\Gamma " /> is the gamma function, not the lower case <img src="https://latex.codecogs.com/gif.latex?\gamma " /> as appeared in the text. Apparently "\Gamma" was auto-corrected to "\gamma" during production. It was even rendered as <img src="https://latex.codecogs.com/gif.latex?\Delta " /> in the final proof, even through the latex is correct.  
-
-2. The first sentence of section 2.3 should be "To model excess ones, we aggregated the first k+1 probabilities of an original distribution g(x) over the positive range to represent the probability of a singleton outcome, and left shifted remaining probabilities to represent the probability of two or more counts, ". The original sentence wasn't clear. 
 
 If there is any questions to me, contact me at <eiDOTog@gmail.com>.
 
