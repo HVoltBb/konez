@@ -8,7 +8,7 @@ If what I just said makes perfect sense to you, then you can skip reading the pa
 
 The long answer is "[K-aggregated transformation of discrete distributions improves modeling count data with excess ones](https://authors.elsevier.com/a/1ZIPN15DJ~xLzr)", and the short answer is the following picture (Figure 1), which is not in that paper.
 
-![A k-aggregated distribution](https://github.com/HVoltBb/HVoltBb.github.io/blob/master/pics/pic.png)
+![A k-aggregated distribution](https://HVoltBb.github.io/pics/pic.png)
 
 Figure 1
 
