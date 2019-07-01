@@ -19,7 +19,7 @@ In that figure, I plotted the probability mass function of a k-aggregated distri
 
 1. On page 4, left column, line 3: <img src="https://latex.codecogs.com/gif.latex?\Gamma " /> is the gamma function, not the lower case <img src="https://latex.codecogs.com/gif.latex?\gamma " /> as appeared in the text. Apparently "\Gamma" was auto-corrected to "\gamma" during production. It was even rendered as <img src="https://latex.codecogs.com/gif.latex?\Delta " /> in the final proof, even through the latex is correct.  
 
-2. The first sentence of section 2.3 should be "To model excess ones, we aggregated the first k+1 probabilities of an original distribution g(x) over the positive range to represent the probability of a singleton outcome, and left shifted remaining probabilities to represent the probability of two or more counts, ". The original sentence wasn't clear. 
+2. The first sentence of section 2.3 should be "To model excess ones, we aggregated the initial k+1 probabilities of an original distribution g(x) over the positive range to represent the probability of a singleton outcome, and left shifted remaining probabilities to represent the probability of two or more counts, ". The original sentence wasn't clear. 
 
 ## How to install
 First, you will need R package _devtools_. Run the following command in R, if you don't have devtools on your computer.
@@ -67,4 +67,4 @@ Thanks,
 
 Can Zhou
 
-6/18/2019 (updated)
+7/1/2019 (updated)
