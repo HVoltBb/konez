@@ -59,7 +59,7 @@ I plan to add a tutorial on how to use k-aggregated models from start to finish.
 
 1. On page 4, left column, line 3: <img src="https://latex.codecogs.com/gif.latex?\Gamma " /> is the gamma function, not the lower case <img src="https://latex.codecogs.com/gif.latex?\gamma " /> as appeared in the text. Apparently "\Gamma" was auto-corrected to "\gamma" during production. It was even rendered as <img src="https://latex.codecogs.com/gif.latex?\Delta " /> in the final proof, even through the latex is correct.  
 
-2. The first sentence of section 2.3 should be "To model excess ones, we aggregated the first k probabilities of an original distribution g(x) after g(1) to represent the probability of a singleton outcome, and left shifted remaining probabilities to represent the probability of two or more counts, ". The original sentence wasn't clear. 
+2. The first sentence of section 2.3 should be "To model excess ones, we aggregated the first k+1 probabilities of an original distribution g(x) over the positive range to represent the probability of a singleton outcome, and left shifted remaining probabilities to represent the probability of two or more counts, ". The original sentence wasn't clear. 
 
 If there is any questions to me, contact me at <eiDOTog@gmail.com>.
 
