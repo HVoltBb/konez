@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="https://HVoltBb.github.io/css/main.css">
 # konez
 An R package for k-aggregated count data regression and simulation with covariates and random effects
 
@@ -12,7 +13,7 @@ The long answer is "[K-aggregated transformation of discrete distributions impro
 
 Figure 1. The probability mass function of a k-aggregated distribution over the positive range.
 
-In that figure, I plotted the probability mass function of a k-aggregated distribution P(x) only over the positive range. The probability of zero would have a zero-inflated or hurdle structure, which would complicate the picture. So, I left P(0) out, but you can always add it back in. The k-aggregated distribution P(x) is constructed from a baseline count distribution P<sub>b</sub>(x), which has probabilities depicted as those maroon boxes. P(1) is constructed by stacking P<sub>b</sub>(1) through P<sub>b</sub>(k), and for i>1, P(i) is P<sub>b</sub>(k+i-1). Specifically, with k=1, <img src="https://latex.codecogs.com/gif.latex?P(x\equiv%20P_b(x))\ " />. The letter "k" has no other significance than an index variable. Any other letter could have been used, but when I originally wrote the code, it was the letter "k" that was used in the loop to sum up those P<sub>b</sub>s. 
+In that figure, I plotted the probability mass function of a k-aggregated distribution P(x) only over the positive range. The probability of zero would have a zero-inflated or hurdle structure, which would complicate the picture. So, I left P(0) out, but you can always add it back in. The k-aggregated distribution P(x) is constructed from a baseline count distribution P<sub>b</sub>(x), which has probabilities depicted as those maroon boxes. P(1) is constructed by stacking P<sub>b</sub>(1) through P<sub>b</sub>(k), and for i>1, P(i) is P<sub>b</sub>(k+i-1). Specifically, with k=1, P(x) is equivalent to P<sub>b</sub>(x). The letter "k" has no other significance than an index variable. Any other letter could have been used, but when I originally wrote the code, it was the letter "k" that was used in the loop to sum up those P<sub>b</sub>s. 
 
 ## How to install
 First, you will need R package _devtools_. Run the following command in R, if you don't have devtools on your computer.
