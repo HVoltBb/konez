@@ -10,7 +10,7 @@ The long answer is "[K-aggregated transformation of discrete distributions impro
 
 ![A k-aggregated distribution](https://HVoltBb.github.io/pics/pic.png)
 
-Figure 1. The probability mass function of a k-aggregated distribution over the positive range.
+__Figure 1. The probability mass function of a k-aggregated distribution over the positive range.__
 
 In that figure, I plotted the probability mass function of a k-aggregated distribution P(x) only over the positive range. The probability of zero would have a zero-inflated or hurdle structure, which would complicate the picture. So, I left P(0) out, but you can always add it back in. The k-aggregated distribution P(x) is constructed from a baseline count distribution P<sub>b</sub>(x), which has probabilities depicted as those maroon boxes. P(1) is constructed by stacking P<sub>b</sub>(1) through P<sub>b</sub>(k), and for i>1, P(i) is P<sub>b</sub>(k+i-1). Specifically, with k=1, P(x) is equivalent to P<sub>b</sub>(x). The letter "k" has no other significance than an index variable. Any other letter could have been used, but when I originally wrote the code, it was the letter "k" that was used in the loop to sum up those P<sub>b</sub>s. 
 
