@@ -1,4 +1,3 @@
-<link rel="stylesheet" type="text/css" href="https://HVoltBb.github.io/css/main.css">
 # konez
 An R package for k-aggregated count data regression and simulation with covariates and random effects
 
