@@ -11,9 +11,9 @@
 #' @export
 
 find_k <- function(model=c('poisson', 'negbinom', 'cmp', 'Tpoisson','Tnegbinom', 'Tcmp'), count, ks = 0:5, type = 0, model_par = list(Xc = NA, Xz = NA, Xrc = NA, Xrz = NA, maxiter=50, size_upper=100), jags_par=list(chain = 2, sample = 1, thin = 5, method = 'rjparallel', burnin = 500, inits = inix, dic.sample = 1e3)){
-  model = parse_model(model, type)
+  model = konez::parse_model(model, type)
   cat('model:', model, '\n')
-  listx = parse_data(count, type, model_par)
+  listx = konez::parse_data(count, type, model_par)
   
   runjags::runjags.options('silent.runjags'=TRUE, 'silent.jags'=TRUE)
   rjags::load.module('lecuyer')
@@ -23,7 +23,7 @@ find_k <- function(model=c('poisson', 'negbinom', 'cmp', 'Tpoisson','Tnegbinom',
   for (i in 1:length(ks)){
     listx$datalist$k = ks[i]
     cat("k=", ks[i], '>> ')
-    fitj = do_fit(model, listx, jags_par)
+    fitj = konez::do_fit(model, listx, jags_par)
     temp = runjags::extract(fitj, 'dic', n.iter = jags_par$dic.sample)
     dics[i] = sum(temp[[1]]+temp[[2]], na.rm = TRUE)
 
@@ -46,22 +46,22 @@ find_k <- function(model=c('poisson', 'negbinom', 'cmp', 'Tpoisson','Tnegbinom',
 #' @examples fit = fit_k('n', poss$X.Lb, k=1, model_par = list(Xc = log(1+poss['X.Stags']), Xz = log(1+poss['X.Stags'])) # Fit 1-aggregated negative model to the Leadbeater's possum abundance data
 #' @export
 fit_k <- function(model=c('poisson', 'negbinom', 'cmp', 'Tpoisson','Tnegbinom', 'Tcmp'), count, k = 0, type = 0, model_par = list(Xc = NA, Xz = NA, Xrc = NA, Xrz = NA, maxiter=50, size_upper=100), jags_par=list(chain = 3, sample = 500, thin = 10, method = 'rjparallel', burnin = 1e3, inits = inix)){
-  model = parse_model(model, type)
+  model = konez::parse_model(model, type)
   cat('model:', model, '\n')
-  listx = parse_data(count, type, model_par)
+  listx = konez::parse_data(count, type, model_par)
 
-  oldwarn = getOption("warn")
-  options(warn = -1)
-  on.exit(options(warn = oldwarn))
   rjags::load.module('lecuyer')
   rjags::parallel.seeds('lecuyer::RngStream', jags_par$chain)
   listx$datalist$k = k[1]
-  fitj = do_fit(model, listx, jags_par)
+  fitj = konez::do_fit(model, listx, jags_par)
   return(fitj)
 }
 
 #' Fit a k-aggregated model
 do_fit <- function(model, listx, jags_par){
+  oldwarn = getOption("warn")
+  options(warn = -1)
+  on.exit(options(warn = oldwarn))
   fitj = runjags::run.jags(model = eval(parse(text = model)),
                   monitor = listx$monitorlist,
                   data = listx$datalist, n.chains = jags_par$chain,
@@ -217,7 +217,7 @@ dcmp_ = function(x, lognu, logmu, maxiter = 50){
 #'@seealso dcmp, dpois, dNegBinom
 #'@describeIn dkx Density function for a k-aggregated distribution.
 #'@export
-dkx = Vectorize(dkx_, vectorize.args = 'x')
+dkx = Vectorize(konez::dkx_, vectorize.args = 'x')
 
 pkx_ = function(q, k, family, param=list(lambda=NA, size=NA, logmu=NA,lognu=NA)){
   return(sum(dkx(0:q, k, family, param)))
@@ -225,7 +225,7 @@ pkx_ = function(q, k, family, param=list(lambda=NA, size=NA, logmu=NA,lognu=NA))
 
 #'@describeIn dkx Distribution function for the k-aggregated distribution.
 #'@export
-pkx = Vectorize(pkx_, vectorize.args = 'q')
+pkx = Vectorize(konez::pkx_, vectorize.args = 'q')
 
 #'@describeIn dkx Random number generator for the k-aggregated distribution.
 #'@export
@@ -238,7 +238,7 @@ rkx = function(n, k, family, param=list(lambda=NA, size=NA, logmu=NA,lognu=NA)){
   }
 
   if(family == 'tpois' && !is.na(param$lambda)){
-    res = rtpois(rep(log(param$lambda), n))
+    res = konez::rtpois(rep(log(param$lambda), n))
   }
 
   if(family == 'negbinom' && !is.na(param$size) && !is.na(param$logmu)){
@@ -246,15 +246,15 @@ rkx = function(n, k, family, param=list(lambda=NA, size=NA, logmu=NA,lognu=NA)){
   }
 
   if(family == 'tnegbinom' && !is.na(param$size) && !is.na(param$logmu)){
-    res = rtnb(n, param$size, param$logmu)
+    res = konez::rtnb(n, param$size, param$logmu)
   }
 
   if(family == 'cmp' && !is.na(param$lognu) && !is.na(param$logmu)){
-    res = rcmp(logmu = param$logmu, lognu = param$lognu)
+    res = konez::rcmp(logmu = param$logmu, lognu = param$lognu)
   }
 
   if(family == 'tcmp' && !is.na(param$lognu) && !is.na(param$logmu)){
-    res = rcmpk(exp(logmu), exp(lognu), zip = FALSE)
+    res = konez::rcmpk(exp(logmu), exp(lognu), zip = FALSE)
   }
 
   indx = which(res > 0 & res <= k+1)
@@ -276,7 +276,7 @@ rtpois <- function(logmu=1:10){
 }
 
 rtnb <- function(n, size, logmu){
-  return(qtnb(runif(n), size, logmu))
+  return(konez::qtnb(runif(n), size, logmu))
 }
 
 qtnb <- function(p, size, logmu){
@@ -302,14 +302,14 @@ qtnb <- function(p, size, logmu){
 #'@references [1] Guikema, S. D., & Goffelt, J. P. (2008). A flexible count data regression model for risk analysis. Risk Analysis: An International Journal, 28(1), 213-223.
 #'@describeIn dcmp Density function for the CMP distribution.
 #'@export
-dcmp = Vectorize(dcmp_, vectorize.args = 'x')
+dcmp = Vectorize(konez::dcmp_, vectorize.args = 'x')
 
 pcmp_ = function(q, lognu, logmu, maxiter = 50){
-  return(sum(dcmp(0:q, lognu, logmu, maxiter)))
+  return(sum(konez::dcmp(0:q, lognu, logmu, maxiter)))
 }
 #'@describeIn dcmp Distribution function for the CMP distribution.
 #'@export
-pcmp = Vectorize(pcmp_, vectorize.args = 'q')
+pcmp = Vectorize(konez::pcmp_, vectorize.args = 'q')
 
 #'@describeIn dcmp Generates random numbers from the CMP distribution. This is a wrapper for the k-aggregated CMP random number generator.
 #'@export
