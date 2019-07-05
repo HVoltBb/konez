@@ -302,14 +302,14 @@ qtnb <- function(p, size, logmu){
 #'@references [1] Guikema, S. D., & Goffelt, J. P. (2008). A flexible count data regression model for risk analysis. Risk Analysis: An International Journal, 28(1), 213-223.
 #'@describeIn dcmp Density function for the CMP distribution.
 #'@export
-dcmp = Vectorize(konez::dcmp_, vectorize.args = 'x')
+dcmp = Vectorize(konez::dcmp_, vectorize.args = c('x', 'logmu', 'lognu'))
 
 pcmp_ = function(q, lognu, logmu, maxiter = 50){
   return(sum(konez::dcmp(0:q, lognu, logmu, maxiter)))
 }
 #'@describeIn dcmp Distribution function for the CMP distribution.
 #'@export
-pcmp = Vectorize(konez::pcmp_, vectorize.args = 'q')
+pcmp = Vectorize(konez::pcmp_, vectorize.args = c('q', 'lognu', 'logmu'))
 
 #'@describeIn dcmp Generates random numbers from the CMP distribution. This is a wrapper for the k-aggregated CMP random number generator.
 #'@export
