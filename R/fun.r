@@ -217,7 +217,7 @@ dcmp_ = function(x, lognu, logmu, maxiter = 50){
 #'@seealso dcmp, dpois, dNegBinom
 #'@describeIn dkx Density function for a k-aggregated distribution.
 #'@export
-dkx = Vectorize(konez::dkx_, vectorize.args = 'x')
+dkx = Vectorize(dkx_, vectorize.args = 'x')
 
 pkx_ = function(q, k, family, param=list(lambda=NA, size=NA, logmu=NA,lognu=NA)){
   return(sum(dkx(0:q, k, family, param)))
