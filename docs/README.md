@@ -53,7 +53,14 @@ These datasets were either extracted from published literature or downloaded dir
 * Lindenmayer, D., Nix, H., McMahon, J., Hutchinson, M., Tanton, M., 1991. The conservation of Leadbeater's possum, Gymnobelideus leadbeateri (McCoy): a case study of the use of bioclimatic modelling. Journal of Biogeography, 371-383.
 * Li, Y., Jiao, Y., Browder, J.A., 2016. Assessment of seabird bycatch in the US Atlantic pelagic longline fishery, with an extra exploration on modeling spatial variation. ICES Journal of Marine Science 73, 2687-2694.
 
-I __do not__ either own or maintain any of the datasets mentioned above. Any data related questions should be directed toward the respective authors or relevant authorities. 
+I __do not__ either own or maintain any of the datasets mentioned above. Any data related questions should be directed toward the respective authors or relevant authorities.
+
+## About running time
+Build-in datasets are farely small, and the code only need at most a couple of minuites for these datasets. However, if your dataset is large or you have many covariates in your model or your model suffers from some degrees of colinearity (many models do), running time will be more than just a few minutes. For example, on a datastet with around 15 thousand entries with less than 10 covariates, it takes 6 hours to fit a single k-aggregated GLM. My advice here is that
+1. Test run on a small sample (a few hundred representative entries)
+2. Toggle up the MCMC sampling frequency while maintaining good samples
+3. (Optional) Deploy the code on a computer cluster if you have access to one
+4. For hurdle models, you only need to fit the binary part once, which will stay the same among different count models. For zero-inflated models, there's not much you can do but fit the whole model each time either bianry or count model changes
 
 ## Tutorial
 I plan to add a tutorial on how to use k-aggregated models from start to finish. Sections to include are:
@@ -69,4 +76,4 @@ Thanks,
 
 Can Zhou
 
-7/1/2019 (updated)
+7/7/2019 (updated)
