@@ -56,7 +56,7 @@ These datasets were either extracted from published literature or downloaded dir
 I __do not__ either own or maintain any of the datasets mentioned above. Any data related questions should be directed toward the respective authors or relevant authorities.
 
 ## About running time
-Build-in datasets are farely small, and the code only need at most a couple of minuites for these datasets. However, if your dataset is large or you have many covariates in your model or your model suffers from some degrees of colinearity (many models do), running time will be more than just a few minutes. For example, on a datastet with around 15 thousand entries with less than 10 covariates, it takes 6 hours to fit a single k-aggregated GLM. My advice here is that
+Build-in datasets are farely small, and the running time is about at most a couple of minuites for these datasets. However, if your dataset is large or you have many covariates in your model or your model suffers from some degrees of colinearity (many models do), running time will be more than just a few minutes. For example, on a datastet with around 15 thousand entries with less than 10 covariates, it takes 6 hours to fit a single k-aggregated GLM. My advice here is that
 1. Test run on a small sample (a few hundred representative entries)
 2. Toggle up the MCMC sampling frequency while maintaining good samples
 3. (Optional) Deploy the code on a computer cluster if you have access to one
