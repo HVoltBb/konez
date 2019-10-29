@@ -1,6 +1,6 @@
 Package: konez
 Title: K-aggregated transformation for modeling excess ones
-Version: 1.1.69
+Version: 1.1.70
 Authors@R: 
     c(person(given = "Can",
            family = "Zhou",
